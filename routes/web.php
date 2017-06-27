@@ -23,4 +23,4 @@ Route::get('/auth/facebook', 'Auth\LoginController@redirectToProvider')->name('l
 Route::get('/auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
 // Profiles
-Route::resource('profile', 'ProfileController'. ['only' => ['create', 'update', 'show']]);
+Route::resource('profile', 'ProfileController',['only' => ['create', 'update', 'show']]);
