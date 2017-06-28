@@ -83,11 +83,11 @@ class LoginController extends Controller
             $info['fname'] = $fname;
             $info['lname'] = $lname;
             $info['email'] = $socialUser->getEmail();
-
+            
             return view('auth.profile')->withInfo($info);
         }
         
         auth()->login($user);
-        return redirect(Route('pages.welcome'));
+        return redirect(Route('pages.dashboard'));
     }
 }

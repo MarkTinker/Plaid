@@ -35,7 +35,6 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $this->validate($request, array(
             'facebook_id'   => 'required|max:255',
             'fname'         => 'required|max:255',
@@ -65,7 +64,7 @@ class ProfileController extends Controller
 
         Session::flash('success', 'Profile was added');
 
-        return redirect()->route();
+        return redirect()->route(account.index);
 
     }
 

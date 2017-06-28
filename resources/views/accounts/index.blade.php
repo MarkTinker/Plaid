@@ -4,6 +4,8 @@
 
 @section ('content')
 
-
+<h1 class="text-center">
+    Bank Accounts
+</h1>
 
 @endsection

@@ -22,6 +22,10 @@ Auth::routes();
 Route::get('/auth/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
 Route::get('/auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
+Route::get('/dashboard', 'PageController@getDashboard')->name('pages.dashboard');
 // Profiles
 Route::resource('profile', 'ProfileController');
+
+// Bank Accounts
+Route::resource('account', 'AccountsController');
 //,['only' => ['create', 'update', 'show']]
