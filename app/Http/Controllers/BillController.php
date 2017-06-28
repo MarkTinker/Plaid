@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AccountsController extends Controller
+class BillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $bankaccounts = Auth::user()->bankaccount;
-        return $bankaccounts;
+        //
     }
 
     /**

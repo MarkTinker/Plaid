@@ -17,14 +17,23 @@
       <ul class="nav navbar-nav">
         <li><a href="{{ route('pages.dashboard') }}">Dashboard</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        @if (Auth::check())        
-        <li class="dropdown">
+      <ul class="nav navbar-nav navbar-right">               
+        @if (Auth::check())
+        <li>
           <a href="{{ route('profile.show', Auth::id()) }}">Profile</a>
-          <a href="{{ route('accounts.show', Auth::id()) }}">Accounts</a>
+        </li>
+        <li>
+          <a href="{{ route('account.show', Auth::id()) }}">Accounts</a>
+        </li>   
+
+        <li class="dropdown">
+          
           <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{ Auth::user()->name }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">            
-            <li><a href="{{ route('logout') }}">Logout</a></li>
+          <ul class="dropdown-menu">
+            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
           </ul>
         </li>        
         @else

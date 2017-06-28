@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Session;
 
 class ProfileController extends Controller
 {
@@ -36,16 +37,16 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'facebook_id'   => 'required|max:255',
-            'fname'         => 'required|max:255',
-            'lname'         => 'required|max:255',
-            'email'         =>  'required|email|max:255',
-            'address1'      => 'required|max:255',
-            'address2'      => 'required|max:255',
-            'city'          => 'required|max:255',
-            'state'         => 'required|max:255',
-            'zip'           => 'required|max:255|numeric',
-            'phone'         => 'required|max:255|numeric',
+            'facebook_id'   => 'required|max:191',
+            'fname'         => 'required|max:191',
+            'lname'         => 'required|max:191',
+            'email'         => 'required|email|max:191',
+            'address1'      => 'required|max:191',
+            'address2'      => 'required|max:191',
+            'city'          => 'required|max:191',
+            'state'         => 'required|max:191',
+            'zip'           => 'required|max:191',
+            'phone'         => 'required|max:191',
             ));
 
         $user = new User();
@@ -57,14 +58,14 @@ class ProfileController extends Controller
         $user->address2 = $request->address2;
         $user->city = $request->city;
         $user->state = $request->state;
-        $user->zip = $reuqest->zip;
+        $user->zip = $request->zip;
         $user->phone = $request->phone;
-        $user->address = $request->address;
+        $user->password='defaultpassword';
         $user->save();
 
         Session::flash('success', 'Profile was added');
 
-        return redirect()->route(account.index);
+        return redirect()->route('account.index');
 
     }
 
