@@ -71,20 +71,20 @@ class LoginController extends Controller
         if(!$user)
         {
 
-            // Redirects to registeration page
-            $info = [];
+            $fullname = $socialUser->getName();
 
+            // Divide into first name and last name
+            $fullname = trim($fullname);
+            $lname = (strpos($fullname, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $fullname);
+            $fname = trim( preg_replace('#'.$lname.'#', '', $fullname ) );
+            
+            $info = [];
             $info['facebook_id'] = $socialUser->getId();
-            $info['name'] = $socialUser->getName(); 
+            $info['fname'] = $fname;
+            $info['lname'] = $lname;
             $info['email'] = $socialUser->getEmail();
 
             return view('auth.profile')->withInfo($info);
-            /*
-            User::create([
-                'facebook_id' => $socialUser->getId(),
-                'name' => $socialUser->getName(),
-                'email'=> $socialUser->getEmail(),
-            ]);*/
         }
         
         auth()->login($user);
