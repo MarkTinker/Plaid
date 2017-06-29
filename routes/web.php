@@ -27,7 +27,7 @@ Route::get('/dashboard', 'PagesController@getDashboard')->name('pages.dashboard'
 Route::resource('profile', 'ProfileController');
 
 // Bank Accounts
-Route::resource('account', 'AccountsController');
+Route::resource('account', 'AccountsController', ['only'=>['index','store']]);
 //,['only' => ['create', 'update', 'show']]
 
 // Bill

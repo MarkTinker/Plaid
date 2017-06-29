@@ -64,6 +64,7 @@ class ProfileController extends Controller
         $user->save();
 
         Session::flash('success', 'Profile was added');
+        Session::flash('firstlogin','1');
 
         return redirect()->route('account.index');
 

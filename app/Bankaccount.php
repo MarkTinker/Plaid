@@ -13,7 +13,7 @@ class Bankaccount extends Model
      */
 
     protected $fillable = [
-        'institution_name', 'institution_id', 'account_id', 'account_name'
+        'institution_name', 'institution_id', 'account_id', 'account_name', 'user_id', 'access_token'
     ];
     
     public function users()
