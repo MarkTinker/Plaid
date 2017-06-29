@@ -13,6 +13,6 @@ class Bill extends Model
      */
 
     protected $fillable = [
-        'user_id', 'bill_name', 'due_date', 'amount', 'pic_url'
+        'user_id', 'bill_name', 'due_date', 'amount', 'pic_url','payment_option', 'status'
     ];
 }

@@ -1,3 +1,118 @@
 .form-control {
     margin-bottom: 10px;
 }
+
+.bill-content .bill-image {
+    background-color: #fff;
+    display: block;
+    min-height: 300px;
+    overflow: hidden;
+    position: relative;
+    border-right: 1px solid #dfe5e9;
+}
+
+.bill-detail {    
+    padding-bottom: 17px;
+    padding-left: 16px;
+    padding-top: 16px;
+    position: relative;
+    background: #fff;
+}
+.bill-detail {
+    padding: 30px 30px 50px;
+}
+
+.bill-detail .name {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.bill-detail .price-container {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 300;
+}
+
+.bill-detail h2.tag2 {
+    position: absolute;
+    padding: 5px 15px;
+    background-color: #a90329;
+    color: #fff;
+    text-align: center;
+}
+
+.bill-content .bill-detail h4 a span {
+    color: #9aa7af;
+    display: block;
+    font-size: 13px;
+}
+.bill-content .bill-detail h4 a {
+    color: #2f383d;
+    font-size: 15px;
+    line-height: 19px;
+    text-decoration: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.bill-detail .name {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.bill-content .bill-detail p.price-container span {
+    color: #21c2f8;
+    font-family: Lato,sans-serif;
+    font-size: 24px;
+    line-height: 20px;
+}
+
+/* Carousel base class */
+.carousel {
+  min-height: 300px;  
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  min-height: 300px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 300px;
+}
+
+.paymentoption-container a {
+    text-decoration: none;
+    color:#000;
+}
+.paymentoption-container h1 {
+    margin-top: 20px;
+}
+.paymentoption-container a:hover {
+    text-decoration: none;
+    color:#337ab7;
+}
+.paymentoption {
+    position: relative;
+    min-height:300px;
+    border:1px solid #2f383d;
+    padding: 30px;
+}
+
+.paymentoption .tag {
+    position: absolute;
+    padding: 5px 15px;
+    left:0;
+    right:0;
+    top:80%;
+    font-size: 40px;
+    color: #000;
+    text-align: center;
+}

@@ -31,4 +31,6 @@ Route::resource('account', 'AccountsController');
 //,['only' => ['create', 'update', 'show']]
 
 // Bill
-Route::resource('bill',' BillController',['except' => ['index']]);
+Route::get('/bill/create2', 'BillController@createStep2')->name('bill.create2');
+Route::post('/bill/store2', 'BillController@storeStep2')->name('bill.store2');
+Route::resource('bill', 'BillController',['except' => ['index']]);

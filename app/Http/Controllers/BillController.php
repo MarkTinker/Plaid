@@ -17,22 +17,42 @@ class BillController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource. Step-1
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('bill.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+      * SShow the from for creating a new bill Step-2
+      *
+      */
+    
+    public function createStep2()
+    {
+        return view('bill.create2');
+    }
+    /**
+     * Store a newly created resource in storage. Step-1
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        return redirect()->route('bill.create2');
+    }
+
+    /**
+     * Store a newly created resource in storage. Step-2
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStep2(Request $request)
     {
         //
     }
