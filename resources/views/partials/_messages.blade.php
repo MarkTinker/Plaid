@@ -6,6 +6,14 @@
 
 @endif
 
+@if (Session::has('errmsg'))
+	
+	<div class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{ Session::get('errmsg') }}
+	</div>
+
+@endif
+
 @if (count($errors) > 0)
 
 	<div class="alert alert-danger" role="alert">

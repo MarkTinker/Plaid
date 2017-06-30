@@ -17,7 +17,7 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('bill_name');
-            $table->timestamp('due_date');
+            $table->date('due_date');
             $table->integer('amount');
             $table->timestamps();
         });

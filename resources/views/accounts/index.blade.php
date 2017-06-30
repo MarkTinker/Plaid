@@ -12,42 +12,47 @@
     <form id="plaidForm" method="POST" action="{{ route('account.store') }}">
         <input type="hidden" name="metadata" id="metadata" val=""/>
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <a id="plaidLink" class="btn btn-primary"> Add Account</a>
+        <a id="plaidLink" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> Add Account</a>
+        
     </form>            
 </div>
-
+<br/>
 @if(count($accounts)>0)
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">Accounts</div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Bank Accounts</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Institution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($accounts as $key=>$account)
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Institution</th>
+                            <td>{{ ($key+1) }}</td>
+                            <td>{{ $account->account_name }}</td>
+                            <td>{{ $account->institution_name }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($accounts as $key=>$account)
-                    <tr>
-                        <td>{{ ($key+1) }}</td>
-                        <td>{{ $account->account_name }}</td>
-                        <td>{{ $account->institution_name }}</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endif
 @if(Session::has('CanSkip'))
-<div class="col-md-3 col-md-offset-9">
-    <a href="{{ route('pages.dashboard') }}" >Skip for now</a>
+<div class="row">
+    <div class="col-md-3 col-md-offset-9">
+        <a href="{{ route('pages.dashboard') }}" >Skip for now</a>
+    </div>
 </div>
 @else
     <div class="col-md-3 col-md-offset-9">

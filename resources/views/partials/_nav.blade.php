@@ -23,7 +23,7 @@
           <a href="{{ route('profile.show', Auth::id()) }}">Profile</a>
         </li>
         <li>
-          <a href="{{ route('account.show', Auth::id()) }}">Accounts</a>
+          <a href="{{ route('account.index') }}">Accounts</a>
         </li>   
 
         <li class="dropdown">

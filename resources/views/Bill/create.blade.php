@@ -45,14 +45,20 @@
                         <label class="control-label" for="billname">Bill Name</label>
                         <input type="text" class="form-control" id="billname" name="billname">
                     </div>
-                    <div class="form-group">
-                        <label class="control-label" for="due_date">Due Date</label>
-                        <input type="text" class="form-control" id="due_date" name="due_date">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="amount"> Amount</label>
-                        <input type="text" class="form-control" id="amount" name="amount">
-                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label" for="due_date">Due Date</label>
+                                <input class="form-control form-control-inline date-picker" size="16" type="text" value=""/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label" for="amount"> Amount</label>
+                                <input type="text" class="form-control" id="amount" name="amount">
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
                 <hr/>
                 <button type="submit" class="btn btn-default">Submit</button>
@@ -60,4 +66,22 @@
         </div>
     </div>
 </form>
+@endsection
+
+@section ('scripts')
+
+<script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script>
+    jQuery(document).ready(function() {    
+        if (jQuery().datepicker) {
+            $('.date-picker').datepicker({
+                rtl: false,
+                orientation: "left",
+                autoclose: true
+            });
+            //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+        }
+    });
+</script>
+
 @endsection

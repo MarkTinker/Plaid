@@ -53,12 +53,19 @@ class AccountsController extends Controller
         $response = $this->getUrlContent($url, $postfields);        
         $response = json_decode($response);
 
+        print_r($response);
         // Get Access Token from response
+        if(property_exists($response,'access_token') == false)
+        {
+            Session::flash('errmsg', $response->error_message);
+            return redirect()->route('account.index');
+        }
         $access_token = $response->access_token;
 
-        $bankaccount = Bankaccount::where('user_id', Auth::id)
+        $bankaccount = Bankaccount::where('user_id', Auth::id())
                         ->where('account_id', $account_id)->first();
         
+        $successmsg = 'Bank Account Added Successfully';
         if($bankaccount == null)
         {
             $bankaccount = new Bankaccount();
@@ -66,6 +73,7 @@ class AccountsController extends Controller
         else
         {
             // Updated Item
+            $successmsg = 'Bank Account Updated Successfully';
         }
 
         $bankaccount->user_id = Auth::id();
@@ -76,8 +84,8 @@ class AccountsController extends Controller
         $bankaccount->access_token = $access_token;
         $bankaccount->save();
 
-        Session::flash('success','Bank Account Added Successfully');
-        return redirect()->route('accounts.index');
+        Session::flash('success',$successmsg);
+        return redirect()->route('account.index');
     }
 
     /**
