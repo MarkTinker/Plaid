@@ -14,8 +14,8 @@ class AddPaymentoptionStatusFieldsToBill extends Migration
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->string('payment_option');
-            $table->string('status');
+            $table->string('payment_option')->nullable();
+            $table->unsignedSmallInteger('status');
         });
     }
 

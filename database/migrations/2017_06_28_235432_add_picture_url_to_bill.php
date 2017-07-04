@@ -14,7 +14,7 @@ class AddPictureUrlToBill extends Migration
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->string('pic_url');
+            $table->string('pic_url')->nullable();
         });
     }
 

@@ -49,13 +49,22 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label class="control-label" for="due_date">Due Date</label>
-                                <input class="form-control form-control-inline date-picker" size="16" type="text" value=""/>
+                                <div class="input-group">
+                                    <span class="input-group-addon ">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>                                    
+                                    <input class="form-control form-control-inline date-picker" size="16" type="text" name="duedate" value=""/>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="amount"> Amount</label>
-                                <input type="text" class="form-control" id="amount" name="amount">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" id="amount" name="amount">
+                                </div>                                
                             </div>
                         </div>
                     </div>                    
