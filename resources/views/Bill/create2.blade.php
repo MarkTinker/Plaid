@@ -9,7 +9,7 @@
 <form role="form" method="POST" action="{{ route('bill.store_paymentoption')}}">
 {{ csrf_field() }}
 <input type="hidden" id="bill_id" name="bill_id" value="{{ $billid }}">
-<input type="hidden" id="payment_option" name="payment_option">
+<input type="hidden" id="payment_option" name="payment_option" value="0">
 <div class="row">
     <div class="col-md-4 paymentoption-container">
         <a data-id="0">

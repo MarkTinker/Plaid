@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bill;
 use Auth;
+use Session;
 
 
 class BillController extends Controller
@@ -81,11 +82,19 @@ class BillController extends Controller
         ));
 
         $bill = Bill::find($request->bill_id);
+        if ($bill != null)
+        {        
+            $bill->payment_option = 'Payment Option '.(intval($request->payment_option)+1);
+            $bill->save();
+            $billInfo['bill'] = $bill;
+            return view('bill.create3')->withBillinfo($billInfo);            
+        }
+        else
+        {
+            Session::flash('errmsg', "Add Bill Failed");
+            return redirect()->route('pages.dashboard');
+        }
         
-        $bill->payment_option = 'Payment Option '.(intval($request->payment_option)+1);
-        $bill->save();
-        $billInfo['bill'] = $bill;
-        return view('bill.create3')->withBillinfo($billInfo);
     }
 
     /**
@@ -97,19 +106,23 @@ class BillController extends Controller
     public function storeStep3(Request $request)
     {
         $this->validate($request, array(
-            'user_id'      => 'required|max:191',
-            'billname'      => 'required|max:191',
-            'duedate'       => 'required|date:after',
-            'amount'        => 'required|numeric'
-            
+            'bill_id'      => 'required|numeric'
         ));
 
-        $bill = Bill::find($request->bill_id);
-        
-        $bill->payment_option = 'Payment Option '.(intval($request->payment_option)+1);
-        $bill->save();
-        $billInfo['bill'] = $bill;
-        return view('bill.create3')->withBillinfo($billInfo);
+
+        $bill = Bill::find($request->bill_id);        
+        if($bill != null)
+        {
+            $bill->status = 1;
+            $bill->save();
+            Session::flash('success', 'Bill Submitted Successfully');
+            return redirect()->route('pages.dashboard');
+        }
+        else
+        {
+            Session::flash('errmsg', 'Add Bill Failed');
+            return redirect()->route('pages.dashboard');
+        }
     }
 
     /**

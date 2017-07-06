@@ -9,9 +9,8 @@
     </div>
     
 
-    <hr/>
-
-    
+    <hr/>    
+    @foreach($bills as $bill)
         <div class="row bill-content">
             <div class="col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="bill-image">
@@ -72,6 +71,6 @@
                 </div>
             </div>
         </div>
-    
+    @endforeach
 
 @endsection

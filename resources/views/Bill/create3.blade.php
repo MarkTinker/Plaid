@@ -7,8 +7,7 @@
 <hr/>
 <form role="form" class="form-horizontal" method="POST" action="{{ route('bill.submit_bill') }}">
 {{ csrf_field() }}
-<input type="hidden" name="user_id" value="{{ $billinfo['bill']->user_id }}">
-<input type="hidden" name="status" value="{{ $billinfo['bill']->status }}">
+<input type="hidden" name="bill_id" value="{{ $billinfo['bill']->id }}">
 <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
             <div class="bill-image">            

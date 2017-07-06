@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Session;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -62,6 +63,7 @@ class ProfileController extends Controller
         $user->phone = $request->phone;
         $user->password='defaultpassword';
         $user->save();
+        Auth::login($user);
 
         Session::flash('success', 'Profile was added');
         Session::flash('firstlogin','1');

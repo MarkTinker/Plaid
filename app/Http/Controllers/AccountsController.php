@@ -53,7 +53,6 @@ class AccountsController extends Controller
         $response = $this->getUrlContent($url, $postfields);        
         $response = json_decode($response);
 
-        print_r($response);
         // Get Access Token from response
         if(property_exists($response,'access_token') == false)
         {
