@@ -22,6 +22,7 @@ class PagesController extends Controller
     {
         $userid = Auth::id();
         $bills = Bill::where('user_id', $userid)->get();
-        return view('pages.dashboard')->withBills($bills);
+        $billsinfo['bills'] = $bills;
+        return view('pages.dashboard')->withBillsinfo($billsinfo);
     }
 }

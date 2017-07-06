@@ -10,7 +10,7 @@
     
 
     <hr/>    
-    @foreach($bills as $bill)
+    @foreach($billsinfo['bills'] as $bill)
         <div class="row bill-content">
             <div class="col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="bill-image">
@@ -43,16 +43,16 @@
                         <div class="col-md-6">
                             <h4 class="name">
                                 <a href="">
-                                    Bill Name
-                                    <span> Due Date</span>
+                                    {{ $bill->bill_name }}
+                                    <span> {{ $bill->due_date}}</span>
                                 </a>                        
                             </h4>
                             <p class="price-container">
-                                <span>$99</span>
+                                <span>${{ $bill->amount }}</span>
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <h2 class="tag2">Not Submitted</h2>
+                            <h2 class="tag2">{{ $bill->status}}</h2>
                         </div>
                     </div>                    
                 </div>
