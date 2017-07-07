@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4 text-right">Payment Option:</label>
                     <div class="col-md-7 col-md-offset-1">
-                        <p class="form-control-static" data-display="duedate">{{ $billinfo['bill']->payment_option }}</p>
+                        <p class="form-control-static" data-display="duedate">Payment Option {{ $billinfo['bill']->payment_option + 1 }}</p>
                     </div>
                 </div>                
             </div>

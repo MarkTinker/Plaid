@@ -64,7 +64,7 @@ class BillController extends Controller
         $bill->save();
 
         // Show the Add Bill Step-2
-        return view('bill.create2')->withBillid($bill->id);
+        return view('bill.create2')->withBillinfo($bill);
     }
 
     /**
@@ -84,7 +84,7 @@ class BillController extends Controller
         $bill = Bill::find($request->bill_id);
         if ($bill != null)
         {        
-            $bill->payment_option = 'Payment Option '.(intval($request->payment_option)+1);
+            $bill->payment_option = $request->payment_option;
             $bill->save();
             $billInfo['bill'] = $bill;
             return view('bill.create3')->withBillinfo($billInfo);            
@@ -144,7 +144,10 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Find the bill in the database
+        $bill = Bill::find($id);        
+        $billinfo['bill'] = $bill;
+        return view('bill.edit')->withBillinfo($billinfo);
     }
 
     /**
@@ -156,7 +159,17 @@ class BillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate Data
+        $this->validate($request, array(
+            'bill_id'      => 'required|numeric'
+        ));
+
+
+        $bill = Bill::find($request->bill_id);
+        // Reset the status of bill to 0
+        $bill->status = 0;
+        $bill->save();
+        return view('bill.edit2')->withBillinfo($bill);
     }
 
     /**

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>Add Bill - Step2</h1>
+<h1>Edit Bill - Step2</h1>
 <hr/>
 <form role="form" method="POST" action="{{ route('bill.store_paymentoption')}}">
 {{ csrf_field() }}
@@ -15,7 +15,7 @@
         <a data-id="0">
             <div class="paymentoption">
             <h1>Payment Option1</h1>
-            <span class="tag glyphicon glyphicon-ok"> </span>
+            <span class="tag glyphicon glyphicon-ok" @if($billinfo['status'] != 0) style="display:none" @endif> </span>
         </div>        
         </a>        
     </div>
@@ -23,7 +23,7 @@
         <a data-id="1">
             <div class="paymentoption">
                 <h1>Payment Option2</h1>                
-                <span class="tag glyphicon glyphicon-ok"> </span>
+                <span class="tag glyphicon glyphicon-ok" @if($billinfo['status'] != 1) style="display:none" @endif> </span>
             </div>
         </a>        
     </div>
@@ -31,7 +31,7 @@
         <a  data-id="2">
             <div class="paymentoption">
             <h1>Payment Option3</h1>
-            <span class="tag glyphicon glyphicon-ok"> </span>
+            <span class="tag glyphicon glyphicon-ok" @if($billinfo['status'] != 2) style="display:none" @endif> </span>
         </div>        
         </a>        
     </div>
@@ -44,11 +44,7 @@
 
 @section ('scripts')
 
-<script>
-    $(function(){
-        $('.paymentoption-container span.tag').hide();
-        $('.paymentoption-container:first-child span.tag').show();
-    });
+<script>    
     $('.paymentoption-container > a').click(function(){
         var option = $(this).data('id');
         $('#payment_option').val(option);

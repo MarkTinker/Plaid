@@ -51,8 +51,29 @@
                                 <span>${{ $bill->amount }}</span>
                             </p>
                         </div>
-                        <div class="col-md-6">
-                            <h2 class="tag2">{{ $bill->status}}</h2>
+                        <div class="col-md-6">                            
+                            @if($bill->status == 0)
+                                <h2 class="tag2 text-info">
+                                    Not Submitted
+                                </h2>
+                            @elseif ($bill->status == 1)
+                                <h2 class="tag2 text-success">
+                                    In Review
+                                </h2>
+                            @elseif ($bill->status == 2)
+                                <h2 class="tag2 text-danger">
+                                    Rejected
+                                </h2>
+                            @elseif ($bill->status == 3)
+                                <h2 class="tag2 text-danger">
+                                    Information Requested
+                                </h2>
+                            @elseif ($bill->status == 4)
+                                <h2 class="tag2 text-primary">
+                                    Paid
+                                </h2>
+                            @endif
+                            
                         </div>
                     </div>                    
                 </div>

@@ -21,7 +21,7 @@ class AddFieldsUserTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->unsignedSmallInteger('zip');
-            $table->unsignedInteger('phone');
+            $table->string('phone');
         });
     }
 
