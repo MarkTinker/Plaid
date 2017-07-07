@@ -6,8 +6,10 @@
 
 <h1>Edit Bill - Step1</h1>
 <hr/>
-<form role="form" method="PATCH" action="{{ route('bill.update', $billinfo['bill']->id) }}">
+<form method="post" action="{{ route('bill.update', $billinfo['bill']->id) }}">
+    <input type="hidden" id="billid" name="bill_id" value="{{ $billinfo['bill']->id }}">
     {{ csrf_field() }}
+    {{ method_field('PUT') }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
             <div class="bill-image">            
