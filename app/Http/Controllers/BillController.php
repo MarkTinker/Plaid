@@ -146,8 +146,16 @@ class BillController extends Controller
     {
         // Find the bill in the database
         $bill = Bill::find($id);        
-        $billinfo['bill'] = $bill;
-        return view('bill.edit')->withBillinfo($billinfo);
+        if($bill != null)
+        {
+            $billinfo['bill'] = $bill;
+            return view('bill.edit')->withBillinfo($billinfo);
+        }        
+        else
+        {
+            Session::flash('errmsg', 'Edit Bill Failed');
+            return redirect()->route('pages.dashboard');
+        }
     }
 
     /**
@@ -161,15 +169,31 @@ class BillController extends Controller
     {
         // Validate Data
         $this->validate($request, array(
-            'bill_id'      => 'required|numeric'
+            'bill_id'      => 'required|numeric',
+            'billname'      => 'required|max:191',
+            'duedate'       => 'required|date:after',
+            'amount'        => 'required|numeric'
         ));
 
-
         $bill = Bill::find($request->bill_id);
-        // Reset the status of bill to 0
-        $bill->status = 0;
-        $bill->save();
-        return view('bill.edit2')->withBillinfo($bill);
+        if($bill != null)
+        {
+            // Reset the status of bill to 0
+            $bill->status = 0;
+            $bill->user_id = Auth::id();
+            $bill->bill_name = $request->billname;
+            $newDate = date("Y-m-d", strtotime($request->duedate));
+            $bill->due_date = $newDate;
+            $bill->status = 0;
+            $bill->amount = $request->amount;        
+            $bill->save();
+            return view('bill.edit2')->withBillinfo($bill);
+        }
+        else
+        {
+            Session::flash('errmsg', 'Edit Bill Failed');
+            return redirect()->route('pages.dashboard');
+        }
     }
 
     /**

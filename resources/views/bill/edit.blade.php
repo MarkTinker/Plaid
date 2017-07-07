@@ -6,7 +6,7 @@
 
 <h1>Edit Bill - Step1</h1>
 <hr/>
-<form role="form" method="POST" action="{{ route('bill.update') }}">
+<form role="form" method="PATCH" action="{{ route('bill.update', $billinfo['bill']->id) }}">
     {{ csrf_field() }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
@@ -53,7 +53,7 @@
                                     <span class="input-group-addon ">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>                                    
-                                    <input class="form-control form-control-inline date-picker" size="16" type="text" name="duedate" value="{{ $billinfo['bill']->due_date }}"/>
+                                    <input class="form-control form-control-inline date-picker" size="16" type="text" name="duedate" value="{{ date('m/d/Y', strtotime($billinfo['bill']->due_date)) }}"/>
                                 </div>
                                 
                             </div>

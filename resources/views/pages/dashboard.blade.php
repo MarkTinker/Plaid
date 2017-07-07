@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-md-6 col-md-offset-3">
                         <div class="col-md-6 text-center">
-                            <a class="btn btn-primary"> Edit </a>
+                            <a href="{{ route('bill.edit', $bill->id) }}" class="btn btn-primary"> Edit </a>
                         </div>
                         <div class="col-md-6 text-center">
                             <a class="btn btn-danger"> Delete</a>
