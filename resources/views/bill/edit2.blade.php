@@ -16,7 +16,7 @@
             <div class="paymentoption">
             <h1>Payment Option1</h1>
             <span class="tag glyphicon glyphicon-ok" @if($billinfo['payment_option'] != 0) style="display:none" @endif> </span>
-        </div>        
+        </div>
         </a>        
     </div>
     <div class="col-md-4 paymentoption-container">
