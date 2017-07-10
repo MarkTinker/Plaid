@@ -10,7 +10,9 @@
     {{ csrf_field() }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
-            
+            <div class="dropzone" id="dropzone">
+                
+            </div>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 text-left">
             <div class="bill-detail">
@@ -53,7 +55,9 @@
 
 @section ('scripts')
 
+<script type="text/javascript" src="{{ asset('js/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+
 <script>
     jQuery(document).ready(function() {    
         if (jQuery().datepicker) {
