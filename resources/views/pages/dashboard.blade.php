@@ -92,6 +92,7 @@
                 </div>
             </div>
         </div>
+        <hr/>
     @endforeach
 
 @endsection
