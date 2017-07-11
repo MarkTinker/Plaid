@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Bill;
 use Auth;
 use Session;
-
+use Illuminate\Support\Facades\Input;
 
 class BillController extends Controller
 {
@@ -61,10 +61,20 @@ class BillController extends Controller
         $bill->due_date = $newDate;
         $bill->status = 0;
         $bill->amount = $request->amount;        
-        $bill->save();
+        //$bill->save();
+        print_r('ok');
+        foreach($request->billimg as $billimg)
+        {
+            $filename = $billimg->store('photos');
+            print_r($filename);
+        }
 
+        $files = Input::all();
+
+        var_dump($files);
+        return $request->file;
         // Show the Add Bill Step-2
-        return view('bill.create2')->withBillinfo($bill);
+        //return view('bill.create2')->withBillinfo($bill);
     }
 
     /**

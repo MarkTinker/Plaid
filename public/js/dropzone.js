@@ -596,12 +596,14 @@
             if (_this.options.capture != null) {
               _this.hiddenFileInput.setAttribute("capture", _this.options.capture);
             }
+            /*
             _this.hiddenFileInput.style.visibility = "hidden";
             _this.hiddenFileInput.style.position = "absolute";
             _this.hiddenFileInput.style.top = "0";
             _this.hiddenFileInput.style.left = "0";
             _this.hiddenFileInput.style.height = "0";
-            _this.hiddenFileInput.style.width = "0";
+            _this.hiddenFileInput.style.width = "0";*/
+            _this.hiddenFileInput.setAttribute("name", _this.options.paramName);
             document.querySelector(_this.options.hiddenInputContainer).appendChild(_this.hiddenFileInput);
             return _this.hiddenFileInput.addEventListener("change", function() {
               var file, files, j, len;

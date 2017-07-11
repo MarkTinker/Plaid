@@ -2,16 +2,35 @@
 
 @section('title', 'Bill Create')
 
+@section('stylesheets')
+
+<!-- Dropzone Custom CSS -->
+<link rel="stylesheet" href="{{asset('css/dropzone.css') }}">
+
+@endsection
 @section('content')
 
 <h1>Add Bill - Step1</h1>
 <hr/>
-<form role="form" method="POST" action="{{ route('bill.store') }}">
+<form role="form" method="POST" action="{{ route('bill.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
-            <div class="dropzone" id="dropzone">
-                
+            <div id="dropzone" class="dropzone"></div>
+
+            <div class="table table-striped files" id="previews">
+                <div id="template" class="file-row">
+                    <!-- This is used as the file preview template -->
+                    <div class="preview"><img data-dz-thumbnail />
+                        <div class="preview-detail">                            
+                            <div>
+                                <button data-dz-remove class="btn delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 text-left">
@@ -46,7 +65,7 @@
                     </div>                    
                 </div>
                 <hr/>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button id="submit" type="submit" class="btn btn-default">Submit</button>
             </div>
         </div>
     </div>
@@ -67,6 +86,41 @@
                 autoclose: true
             });
         }
+
+        //Dropzone.autoDiscover = false;
+
+        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+        var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        Dropzone.options.dropzone = {
+            url: "{{ route('bill.store') }}",
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            dictDefaultMessage : "Drop files here or click to upload",
+            hiddenInputContainer : "#dropzone",            
+            paramName:"billimg",
+            uploadMultiple: true,
+            autoProcessQueue: false,
+            parallelUploads:100,
+            maxFiles : 100,
+        }
+
+        /*
+        // Init Dropzone
+        var myDropzone = $("div#dropzone").dropzone({ 
+            
+            
+        });
+        Dropzone.options.dropzone = {
+            
+        }*/
     });
 </script>
 
