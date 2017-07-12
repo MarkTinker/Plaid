@@ -23,7 +23,7 @@
                     <div class="carousel-inner">
                         @foreach($billinfo['billimage'] as $key => $billimg)
                         <div class="item {{ $key == 0 ? 'active' : ''}}">
-                            <img src="{{ $billimg->filename }}">
+                            <img src="{{ asset($billimg->filename) }}">
                         </div>
                         @endforeach
                     </div>

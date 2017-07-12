@@ -15,22 +15,22 @@
         <div class="row bill-content">
             <div class="col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="bill-image">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div id="myCarousel{{ $key }}" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             @foreach($billsinfo['billimgs'][$key] as $key1=>$billimg)                            
-                                <li data-target="#myCarousel" data-slide-to="{{$key1}}" class="{{$key1==0?'active':''}}"></li>
+                                <li data-target="#myCarousel{{ $key }}" data-slide-to="{{$key1}}" class="{{$key1==0?'active':''}}"></li>
                             @endforeach                            
                         </ol>
                         <div class="carousel-inner">
                             @foreach($billsinfo['billimgs'][$key] as $key1=>$billimg)                            
                                 <div class="item {{ $key1==0?'active':''}}">
-                                    <img src="{{asset('img/'.$billimg->filename)}}">
+                                    <img src="{{asset($billimg->filename)}}">
                                 </div>
                             @endforeach                            
                         </div>
-                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a class="left carousel-control" href="#myCarousel{{ $key }}" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <a class="right carousel-control" href="#myCarousel{{ $key }}" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div><!-- /.carousel -->
                 </div>                
             </div>

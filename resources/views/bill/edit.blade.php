@@ -6,21 +6,23 @@
 
 <h1>Edit Bill - Step1</h1>
 <hr/>
-<form method="post" action="{{ route('bill.update', $billinfo['bill']->id) }}">
+<form method="post" action="{{ route('bill.update', $billinfo['bill']->id) }}" enctype="multipart/form-data">
     <input type="hidden" id="billid" name="bill_id" value="{{ $billinfo['bill']->id }}">
-    "
     {{ csrf_field() }}
     {{ method_field('PUT') }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+            <div class="text-center">
+                <a class="btn btn-primary" type="button" id="add_img"><span class="glyphicon glyphicon-plus"></span> Add</a>
+            </div>
             <div id="billimages">
-            <input type="hidden" id="imgindex" value="{{ count($billimgs) }}">
+                <input type="hidden" id="imgindex" value="{{ count($billinfo['billimgs']) }}">
                 @foreach($billinfo['billimgs'] as $key => $billimg)
                     <div id="bill{{ $key }}" class="billimage-container">
                     <div class="billimage-preview">
-                            <img src=""/>
+                            <img src="{{ asset($billimg->filename) }}"/>
                         </div>
-                        <input name="file[]" type="file"/>
+                        <input name="bill_image_id[]" type="text" value ="{{ $billimg->id }}"/>                        
                         <a class="btn btn-remove"><span class="glyphicon glyphicon-trash"></span></a>
                     </div>
                 @endforeach
@@ -92,11 +94,21 @@
             }
         }
 
-         
+        var index = 0;
+        var imgcount = parseInt($('#imgindex').val());
+        for (index = 0; index < imgcount; index++)
+        {
+            $("#bill"+ index +" input").change(function(){
+                readURL(this);
+            });
+            $("#bill"+ index +" .btn-remove").click(function(e){
+                $(this).closest('.billimage-container').remove();
+            });
+        }
 
         $('#add_img').click(function(e) {
             e.preventDefault();
-            var tmpId = $('#imgindex');
+            var tmpId = $('#imgindex').val();
             $('#imgindex').val(parseInt(tmpId) + 1);
             var $div = '<div id="bill'+tmpId+'" class="billimage-container">' +
                 '<div class="billimage-preview">' +

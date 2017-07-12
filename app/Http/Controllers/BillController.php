@@ -7,6 +7,7 @@ use App\Bill;
 use App\BillImage;
 use Auth;
 use Session;
+use File;
 use Illuminate\Support\Facades\Input;
 
 class BillController extends Controller
@@ -77,7 +78,7 @@ class BillController extends Controller
         {
             foreach($request->file as $billimg)
             {
-                $filename = $billimg->store('bills');
+                $filename = $billimg->store('img/bills');
                 BillImage::create([
                     'bill_id' => $bill->id,
                     'filename' => $filename
@@ -103,7 +104,7 @@ class BillController extends Controller
         ));
 
         $bill = Bill::find($request->bill_id);
-        $billimage = BillImage::where('bill_id', $bill->id);
+        $billimage = BillImage::where('bill_id', $bill->id)->get();
         if ($bill != null)
         {        
             $bill->payment_option = $request->payment_option;
@@ -213,6 +214,41 @@ class BillController extends Controller
             $bill->status = 0;
             $bill->amount = $request->amount;        
             $bill->save();
+
+            // Remove the old files
+            $oldfiles = BillImage::where('bill_id', $bill->id)->get();
+            foreach($oldfiles as $oldfile)
+            {
+                if($request->bill_image_id != null)
+                {
+                    if(!(in_array($oldfile->id, $request->bill_image_id)))
+                    {
+                        File::delete($oldfile->filename);
+                        $oldfile->delete();
+                    }
+                }
+                else
+                {
+                    File::delete($oldfile->filename);
+                    $oldfile->delete();
+                }                
+            }
+            
+            
+            if($request->file != null)
+            {
+                print_r('ok');
+                
+                foreach($request->file as $billimg)
+                {
+                    $filename = $billimg->store('img/bills');
+
+                    BillImage::create([
+                        'bill_id' => $bill->id,
+                        'filename' => $filename
+                    ]);
+                }
+            }
             return view('bill.edit2')->withBillinfo($bill);
         }
         else
