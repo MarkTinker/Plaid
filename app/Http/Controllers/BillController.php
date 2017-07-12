@@ -73,16 +73,17 @@ class BillController extends Controller
         $bill->status = 0;
         $bill->amount = $request->amount;        
         $bill->save();
-        
-        foreach($request->file as $billimg)
+        if($request->file != null)
         {
-            $filename = $billimg->store('photos');
-            BillImage::create([
-                'bill_id' => $bill->id,
-                'filename' => $filename
-            ]);
-        }
-
+            foreach($request->file as $billimg)
+            {
+                $filename = $billimg->store('bills');
+                BillImage::create([
+                    'bill_id' => $bill->id,
+                    'filename' => $filename
+                ]);
+            }
+        }        
         // Show the Add Bill Step-2
         return view('bill.create2')->withBillinfo($bill);
     }
@@ -171,6 +172,9 @@ class BillController extends Controller
         if($bill != null)
         {
             $billinfo['bill'] = $bill;
+            $billimgs = [];
+            $billimgs = BillImage::where('bill_id', '=', $bill->id)->get();
+            $billinfo['billimgs'] = $billimgs;
             return view('bill.edit')->withBillinfo($billinfo);
         }        
         else

@@ -9,28 +9,25 @@
     </div>
     
 
-    <hr/>    
-    @foreach($billsinfo['bills'] as $bill)
+    <hr/>
+
+    @foreach($billsinfo['bills'] as $key => $bill)
         <div class="row bill-content">
             <div class="col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="bill-image">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            @foreach($billsinfo['billimgs'][$key] as $key1=>$billimg)                            
+                                <li data-target="#myCarousel" data-slide-to="{{$key1}}" class="{{$key1==0?'active':''}}"></li>
+                            @endforeach                            
                         </ol>
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">                                
-                            </div>
-                            <div class="item">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">                            
-                            </div>
-                            <div class="item">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">                            
-                            </div>
+                            @foreach($billsinfo['billimgs'][$key] as $key1=>$billimg)                            
+                                <div class="item {{ $key1==0?'active':''}}">
+                                    <img src="{{asset('img/'.$billimg->filename)}}">
+                                </div>
+                            @endforeach                            
                         </div>
                         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
                         <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>

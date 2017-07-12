@@ -8,37 +8,23 @@
 <hr/>
 <form method="post" action="{{ route('bill.update', $billinfo['bill']->id) }}">
     <input type="hidden" id="billid" name="bill_id" value="{{ $billinfo['bill']->id }}">
+    "
     {{ csrf_field() }}
     {{ method_field('PUT') }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
-            <div class="bill-image">            
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">                                                            
+            <div id="billimages">
+            <input type="hidden" id="imgindex" value="{{ count($billimgs) }}">
+                @foreach($billinfo['billimgs'] as $key => $billimg)
+                    <div id="bill{{ $key }}" class="billimage-container">
+                    <div class="billimage-preview">
+                            <img src=""/>
                         </div>
-                        <div class="item">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">                            
-                        </div>
-                        <div class="item">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">                            
-                        </div>
+                        <input name="file[]" type="file"/>
+                        <a class="btn btn-remove"><span class="glyphicon glyphicon-trash"></span></a>
                     </div>
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                </div><!-- /.carousel -->
-                <hr/>
-                <div class="row text-center">
-                    <a class="btn btn-primary">Add Bill Image</a>
-                </div>            
-            </div>            
+                @endforeach
+            </div>           
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 text-left">
             <div class="bill-detail">
@@ -92,6 +78,44 @@
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    input.parentElement.getElementsByTagName('img')[0].src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+         
+
+        $('#add_img').click(function(e) {
+            e.preventDefault();
+            var tmpId = $('#imgindex');
+            $('#imgindex').val(parseInt(tmpId) + 1);
+            var $div = '<div id="bill'+tmpId+'" class="billimage-container">' +
+                '<div class="billimage-preview">' +
+                        '<img src=""/>' +
+                    '</div>' +
+                    '<input name="file[]" type="file"/>' +
+                    '<a class="btn btn-remove"><span class="glyphicon glyphicon-trash"></span></a>' +
+                '</div>';
+            
+            $('#billimages').append($div);
+            $("#bill"+ tmpId +" input").trigger('click');
+            $("#bill"+ tmpId +" input").change(function(){
+                readURL(this);
+            });
+            $("#bill"+ tmpId +" .btn-remove").click(function(e){
+                $(this).closest('.billimage-container').remove();
+            });
+
+        });
     });
 </script>
 
