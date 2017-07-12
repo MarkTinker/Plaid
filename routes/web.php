@@ -43,3 +43,5 @@ Route::get('/secureadmin/profile/{profile}', 'AdminController@getProfile')->name
 Route::post('/secureadmin/itemdetail', 'AdminController@postItemDetail')->name('admin.itemdetail');
 
 Route::post('/secureadmin/ach', 'AdminController@postAch')->name('stripe.ach');
+
+Route::post('/secureadmin/bill/changestatus', 'AdminController@ajaxChangeStatus')->name('admin.changestatus');

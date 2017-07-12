@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Bankaccount;
+use App\Bill;
+use App\BillImage;
 class AdminController extends Controller
 {
 
@@ -31,8 +33,12 @@ class AdminController extends Controller
         // Get Bank Accounts
         $bankaccounts = Bankaccount::where('user_id', $id)->get();
 
+        // Get Bill Infos
+        $bills = Bill::where('user_id', $id)->get();
+
         $view_data['basic_data'] = $profile;
         $view_data['items_data'] = $bankaccounts;
+        $view_data['bill_data'] = $bills;
 
         return view('admin.profile')->with(array('view_data' => $view_data));
     }
@@ -99,4 +105,39 @@ class AdminController extends Controller
         Session::flash('success', 'Created Charge');
         return redirect()->route('admin.index');
     }
+
+    /**
+        * This function receive ajax request and change the status 
+    */
+    public function ajaxChangeStatus(Request $request)
+    {
+        $id = $request->id;
+        $value = $request->value;
+
+        $bill = Bill::find($id);
+        $bill->status = $value;
+        $bill->save();
+        return 'Success';
+    }
+
+    /**
+        * This function send post to $url and return response.
+        *
+        * @access   private
+        * @param    string      $url                end point of request
+        * @param    json string $fields             data which is sent with request
+        * @return   string      $response           response data of request    
+    */
+    public function getUrlContent($url, $postfields)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);      
+        $response = curl_exec($ch);
+        curl_close ($ch);
+        return $response;
+    }    
 }

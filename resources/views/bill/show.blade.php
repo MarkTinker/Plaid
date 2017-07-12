@@ -1,13 +1,8 @@
 @extends('layouts.main')
 
-@section('title','Create Bill - Summary')
+@section('title', 'Bill - Show')
 
 @section('content')
-<h1> Confirm Your Bill</h1>
-<hr/>
-<form role="form" class="form-horizontal" method="POST" action="{{ route('bill.submit_bill') }}">
-{{ csrf_field() }}
-<input type="hidden" name="bill_id" value="{{ $billinfo['bill']->id }}">
 <div class="row bill-content">
     <div class="col-md-6 col-sm-12 col-xs-12 text-center">
         <div class="bill-image">            
@@ -33,7 +28,7 @@
         </div>            
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12 text-left">
-        <div class="bill-detail">
+        <div class="row bill-detail">
             <div class="form-group">
                 <label class="control-label col-md-4 text-right">Bill Name:</label>
                 <div class="col-md-7 col-md-offset-1">
@@ -58,12 +53,30 @@
                     <p class="form-control-static" data-display="duedate">Payment Option {{ $billinfo['bill']->payment_option + 1 }}</p>
                 </div>
             </div>                
-        </div>
-    </div>
+        </div> 
+        <div class="row text-center">
+            @if($billinfo['bill']->status == 0)
+                <h2 class="tag2 text-info">
+                    Not Submitted
+                </h2>
+            @elseif ($billinfo['bill']->status == 1)
+                <h2 class="tag2 text-success">
+                    In Review
+                </h2>
+            @elseif ($billinfo['bill']->status == 2)
+                <h2 class="tag2 text-danger">
+                    Rejected
+                </h2>
+            @elseif ($billinfo['bill']->status == 3)
+                <h2 class="tag2 text-danger">
+                    Information Requested
+                </h2>
+            @elseif ($billinfo['bill']->status == 4)
+                <h2 class="tag2 text-primary">
+                    Paid
+                </h2>
+            @endif
+        </div>                
+    </div>       
 </div>
-<hr/>
-<div class="text-center">
-    <button type="submit" class="btn btn-default btn-success">Submit</button>
-</div>
-</form>
 @endsection

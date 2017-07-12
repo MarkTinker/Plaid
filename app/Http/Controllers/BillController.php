@@ -157,7 +157,19 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        $bill = Bill::find($id);
+        $billimage = BillImage::where('bill_id', $id)->get();
+        if($bill != null)
+        {
+            $billInfo['bill'] = $bill;
+            $billInfo['billimage'] = $billimage;
+            return view('bill.show')->withBillinfo($billInfo);
+        }
+        else
+        {
+            Session::flash('errmsg', 'Bill Show Failed');
+            return redirect()->route('pages.dashboard');
+        }
     }
 
     /**

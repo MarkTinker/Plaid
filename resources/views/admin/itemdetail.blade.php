@@ -199,7 +199,7 @@
         var amount = $('#amount').val();
         var type = "usd";
         var bankaccountoken = $('#stripebanktoken').val();
-        var szUrl = '{{route("stripe.ach")}}';
+        var szUrl = '{{ route("stripe.ach") }}';
 
         $.ajax({
             type: "POST",
