@@ -1,3 +1,7 @@
+
+.clickable-row{
+    cursor: pointer;
+}
 .form-control {
     margin-bottom: 10px;
 }

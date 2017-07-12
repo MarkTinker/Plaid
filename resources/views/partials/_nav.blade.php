@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Plaid</a>
+      <a class="navbar-brand" href="{{ route('pages.welcome') }}">Plaid</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,7 +20,7 @@
       <ul class="nav navbar-nav navbar-right">               
         @if (Auth::check())
         <li>
-          <a href="{{ route('profile.show', Auth::id()) }}">Profile</a>
+          <a href="{{ route('profile.edit', Auth::id()) }}">Profile</a>
         </li>
         <li>
           <a href="{{ route('account.index') }}">Accounts</a>

@@ -84,7 +84,7 @@ class LoginController extends Controller
             $info['lname'] = $lname;
             $info['email'] = $socialUser->getEmail();
             
-            return view('auth.profile')->withInfo($info);
+            return view('profile.create')->withInfo($info);
         }
         
         auth()->login($user);

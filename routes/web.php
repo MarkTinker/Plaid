@@ -34,3 +34,12 @@ Route::resource('account', 'AccountsController', ['only'=>['index','store']]);
 Route::post('/bill/storepaymentoption', 'BillController@storeStep2')->name('bill.store_paymentoption');
 Route::post('/bill/submitbill', 'BillController@storeStep3')->name('bill.submit_bill');
 Route::resource('bill', 'BillController',['except' => ['index']]);
+
+// Admin Controller
+
+Route::get('/secureadmin', 'AdminController@index')->name('admin.index');
+
+Route::get('/secureadmin/profile/{profile}', 'AdminController@getProfile')->name('admin.profile');
+Route::post('/secureadmin/itemdetail', 'AdminController@postItemDetail')->name('admin.itemdetail');
+
+Route::post('/secureadmin/ach', 'AdminController@postAch')->name('stripe.ach');

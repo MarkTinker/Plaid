@@ -91,7 +91,14 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Find the user profile in the database
+        $user = Auth::user();
+        if($user == null)
+        {
+            return redirect()->route('facebook.login');
+        }
+
+        return view('profile.edit')->withUser($user);
     }
 
     /**
@@ -103,7 +110,42 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, array(
+            'facebook_id'   => 'required|max:191',
+            'fname'         => 'required|max:191',
+            'lname'         => 'required|max:191',
+            'email'         => 'required|email|max:191',
+            'address1'      => 'required|max:191',
+            'address2'      => 'required|max:191',
+            'city'          => 'required|max:191',
+            'state'         => 'required|max:191',
+            'zip'           => 'required|max:191',
+            'phone'         => 'required|max:191',
+            ));
+        $user = User::find($id);
+
+        if($user != null)
+        {
+            $user->facebook_id = $request->facebook_id;
+            $user->fname = $request->fname;
+            $user->lname = $request->lname;
+            $user->email = $request->email;
+            $user->address1 = $request->address1;
+            $user->address2 = $request->address2;
+            $user->city = $request->city;
+            $user->state = $request->state;
+            $user->zip = $request->zip;
+            $user->phone = $request->phone;
+            $user->save();
+
+            Session::flash('success', 'Profile Edit Success');
+            return redirect()->route('pages.dashboard');
+        }
+        else
+        {
+            Session::flash('errmsg', 'Profile Edit Failed');
+            return redirect()->route('pages.dashboard');
+        }
     }
 
     /**
