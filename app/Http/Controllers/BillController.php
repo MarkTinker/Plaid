@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bill;
+use App\BillImage;
 use Auth;
 use Session;
 use Illuminate\Support\Facades\Input;
 
 class BillController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,26 +66,25 @@ class BillController extends Controller
         ));
 
         $bill = new Bill();
-        $bill->user_id = Auth::id();
+        $bill->user_id = Auth::user()->id;
         $bill->bill_name = $request->billname;
         $newDate = date("Y-m-d", strtotime($request->duedate));
         $bill->due_date = $newDate;
         $bill->status = 0;
         $bill->amount = $request->amount;        
-        //$bill->save();
-        print_r('ok');
-        foreach($request->billimg as $billimg)
+        $bill->save();
+        
+        foreach($request->file as $billimg)
         {
             $filename = $billimg->store('photos');
-            print_r($filename);
+            BillImage::create([
+                'bill_id' => $bill->id,
+                'filename' => $filename
+            ]);
         }
 
-        $files = Input::all();
-
-        var_dump($files);
-        return $request->file;
         // Show the Add Bill Step-2
-        //return view('bill.create2')->withBillinfo($bill);
+        return view('bill.create2')->withBillinfo($bill);
     }
 
     /**
@@ -92,11 +102,13 @@ class BillController extends Controller
         ));
 
         $bill = Bill::find($request->bill_id);
+        $billimage = BillImage::where('bill_id', $bill->id);
         if ($bill != null)
         {        
             $bill->payment_option = $request->payment_option;
             $bill->save();
             $billInfo['bill'] = $bill;
+            $billInfo['billimage'] = $billimage;
             return view('bill.create3')->withBillinfo($billInfo);            
         }
         else

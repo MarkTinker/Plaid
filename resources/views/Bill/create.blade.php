@@ -2,12 +2,6 @@
 
 @section('title', 'Bill Create')
 
-@section('stylesheets')
-
-<!-- Dropzone Custom CSS -->
-<link rel="stylesheet" href="{{asset('css/dropzone.css') }}">
-
-@endsection
 @section('content')
 
 <h1>Add Bill - Step1</h1>
@@ -16,21 +10,11 @@
     {{ csrf_field() }}
     <div class="row bill-content">
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
-            <div id="dropzone" class="dropzone"></div>
-
-            <div class="table table-striped files" id="previews">
-                <div id="template" class="file-row">
-                    <!-- This is used as the file preview template -->
-                    <div class="preview"><img data-dz-thumbnail />
-                        <div class="preview-detail">                            
-                            <div>
-                                <button data-dz-remove class="btn delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>                        
-                </div>
+            <div class="text-center">
+                <a class="btn btn-primary" type="button" id="add_img"><span class="glyphicon glyphicon-plus"></span> Add</a>
+            </div>
+            <div id="billimages">
+                
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 text-left">
@@ -74,10 +58,10 @@
 
 @section ('scripts')
 
-<script type="text/javascript" src="{{ asset('js/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
 <script>
+    var img_id = 0;
     jQuery(document).ready(function() {    
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
@@ -87,40 +71,43 @@
             });
         }
 
-        //Dropzone.autoDiscover = false;
+        function readURL(input) {
 
-        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-        var previewNode = document.querySelector("#template");
-        previewNode.id = "";
-        var previewTemplate = previewNode.parentNode.innerHTML;
-        previewNode.parentNode.removeChild(previewNode);
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-        Dropzone.options.dropzone = {
-            url: "{{ route('bill.store') }}",
-            thumbnailWidth: 80,
-            thumbnailHeight: 80,
-            parallelUploads: 20,
-            previewTemplate: previewTemplate,
-            autoQueue: false, // Make sure the files aren't queued until manually added
-            previewsContainer: "#previews", // Define the container to display the previews
-            dictDefaultMessage : "Drop files here or click to upload",
-            hiddenInputContainer : "#dropzone",            
-            paramName:"billimg",
-            uploadMultiple: true,
-            autoProcessQueue: false,
-            parallelUploads:100,
-            maxFiles : 100,
+                reader.onload = function (e) {
+                    input.parentElement.getElementsByTagName('img')[0].src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
-        /*
-        // Init Dropzone
-        var myDropzone = $("div#dropzone").dropzone({ 
+         
+
+        $('#add_img').click(function(e) {
+            e.preventDefault();
+            var tmpId = img_id;
+            img_id++;
+            var $div = '<div id="bill'+tmpId+'" class="billimage-container">' +
+                '<div class="billimage-preview">' +
+                        '<img src=""/>' +
+                    '</div>' +
+                    '<input name="file[]" type="file"/>' +
+                    '<a class="btn btn-remove"><span class="glyphicon glyphicon-trash"></span></a>' +
+                '</div>';
             
-            
+            $('#billimages').append($div);
+            $("#bill"+ tmpId +" input").trigger('click');
+            $("#bill"+ tmpId +" input").change(function(){
+                readURL(this);
+            });
+            $("#bill"+ tmpId +" .btn-remove").click(function(e){
+                $(this).closest('.billimage-container').remove();
+            });
+
         });
-        Dropzone.options.dropzone = {
-            
-        }*/
     });
 </script>
 
