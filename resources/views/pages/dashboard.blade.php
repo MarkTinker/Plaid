@@ -83,7 +83,11 @@
                             <a href="{{ route('bill.edit', $bill->id) }}" class="btn btn-primary"> Edit </a>
                         </div>
                         <div class="col-md-6 text-center">
-                            <a class="btn btn-danger"> Delete</a>
+                            <form method="post" action ="{{ route('bill.destroy', $bill->id) }}" >
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
                         </div>
                     </div>                    
                 </div>

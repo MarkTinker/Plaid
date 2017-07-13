@@ -278,6 +278,16 @@ class BillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Remove the old files
+        $oldfiles = BillImage::where('bill_id', $id)->get();
+        foreach($oldfiles as $oldfile)
+        {
+            File::delete($oldfile->filename);
+            $oldfile->delete();
+        }
+        Bill::destroy($id);
+
+        Session::flash('success', 'Bill Removed Successfully');
+        return redirect()->route('pages.dashboard');
     }
 }

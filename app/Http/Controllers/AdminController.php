@@ -7,6 +7,7 @@ use App\User;
 use App\Bankaccount;
 use App\Bill;
 use App\BillImage;
+use Session;
 class AdminController extends Controller
 {
 
@@ -102,8 +103,8 @@ class AdminController extends Controller
           "customer" => $customer,
         ));
 
-        Session::flash('success', 'Created Charge');
-        return redirect()->route('admin.index');
+        //Session::flash('success', 'Created Charge');
+        return 'Charge Created';
     }
 
     /**
