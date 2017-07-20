@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Session;
 use Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -37,7 +38,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, array(
+        $validator = Validator::make($request->all(), array(
             'facebook_id'   => 'required|max:191',
             'fname'         => 'required|max:191',
             'lname'         => 'required|max:191',
@@ -49,6 +50,11 @@ class ProfileController extends Controller
             'zip'           => 'required|max:191',
             'phone'         => 'required|max:191',
             ));
+        if ($validator->fails()) {
+            return redirect()->route('pages.welcome')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $user = new User();
         $user->facebook_id = $request->facebook_id;
@@ -110,6 +116,24 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), array(
+            'facebook_id'   => 'required|max:191',
+            'fname'         => 'required|max:191',
+            'lname'         => 'required|max:191',
+            'email'         => 'required|email|max:191',
+            'address1'      => 'required|max:191',
+            'address2'      => 'required|max:191',
+            'city'          => 'required|max:191',
+            'state'         => 'required|max:191',
+            'zip'           => 'required|max:191',
+            'phone'         => 'required|max:191',
+            ));
+        if ($validator->fails()) {
+            return redirect()->route('pages.welcome')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        /*
         $this->validate($request, array(
             'facebook_id'   => 'required|max:191',
             'fname'         => 'required|max:191',
@@ -122,6 +146,7 @@ class ProfileController extends Controller
             'zip'           => 'required|max:191',
             'phone'         => 'required|max:191',
             ));
+            */
         $user = User::find($id);
 
         if($user != null)
